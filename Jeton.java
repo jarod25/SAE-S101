@@ -7,13 +7,13 @@ public class Jeton {
     static final Scanner input = new Scanner(System.in);
     public static String[] state;
     static final int NCASES = 21;
-    static final int NLIGNES = 6; 
+    static final int NLIGNES = 6;
     static final String[] COULEURS = {"B", "R"};
 
     static boolean estOui(char reponse) {
         return "yYoO".indexOf(reponse) != -1;
     }
-    
+
     public static void main(String[] args) throws InterruptedException {
 
         boolean newDeal;
@@ -58,20 +58,26 @@ public class Jeton {
      * Initialise le jeu avec un double/triple underscore à chaque case, signifiant 'case vide'
      */
     public static String[] initJeu() {
-        String[] tabInit = new String[20];
-                for(int i = 0; i<20; i++){
-                    tabInit[i] = "___";
-                }
-                return tabInit;
+      String[] tabInit = new String[20];
+        for (int i=0;i<20;i++) {
+          tabInit[i] = "___";
+        }
+        return tabInit;
     }
 
     /**
      * Affiche le plateau de jeu en mode texte
      */
     public static void afficheJeu(String[] tabInit){
-        for(int j = 1; j>20; j++){
-            System.out.print(tabInit[j]);
+      for (int y=0;y<=6;y++) {
+        int a=0;
+        System.out.println();
+        for (int z=0;z<y;z++) {
+          System.out.print(tabInit[y+a]);
+          System.out.print(" ");
+          a = a+1;
         }
+      }
     }
 
     /**
@@ -82,7 +88,7 @@ public class Jeton {
      * @return true si le jeton a pu être posé, false sinon.
      */
     public static boolean jouer(String couleur, int val, int pos){
-        throw new java.lang.UnsupportedOperationException("Test 1");
+        throw new java.lang.UnsupportedOperationException("à compléter");
     }
 
     /**
@@ -91,7 +97,7 @@ public class Jeton {
      * @return l'indice de la case la plus à gauche de la ligne
      */
     public static int idDebutLigne(int idLigne){
-        throw new java.lang.UnsupportedOperationException("Test 2");
+        throw new java.lang.UnsupportedOperationException("à compléter");
     }
 
     /**
@@ -100,7 +106,7 @@ public class Jeton {
      * @return l'indice de la case la plus à droite de la ligne
      */
     public static int idFinLigne(int idLigne){
-        throw new java.lang.UnsupportedOperationException("Test 3");
+        throw new java.lang.UnsupportedOperationException("à compléter");
     }
 
     /**
@@ -108,7 +114,7 @@ public class Jeton {
      * @return l'indice de la case non occupée
      */
     public static int getIdVide(){
-        throw new java.lang.UnsupportedOperationException("Test 4");
+        throw new java.lang.UnsupportedOperationException("à compléter");
     }
 
     /**
@@ -119,7 +125,7 @@ public class Jeton {
      * @return somme des poids
      */
     public static int sommeVoisins(String col){
-        throw new java.lang.UnsupportedOperationException("Test 5");
+        throw new java.lang.UnsupportedOperationException("à compléter");
     }
 
     /**
@@ -131,7 +137,7 @@ public class Jeton {
 	/*
 		Écire un véritable code sachant jouer.
 		La ligne du return ci-dessous doit donc naturellement aussi être ré-écrite.
-		Cette version ne permet que de reproduire le fonctionnement à 2 joueurs 
+		Cette version ne permet que de reproduire le fonctionnement à 2 joueurs
 		tout en conservant l'appel à la fonction,
 		cela peut s'avérer utile lors du développement.
 	*/
