@@ -27,6 +27,8 @@ public class Jeton {
 
             String[] tabInit = initJeu();
             afficheJeu(tabInit);
+            System.out.print(jouer(tabInit,"B",8,10));
+            afficheJeu(tabInit);
 
             int val = 1;
             int idCaseJouee;
@@ -62,13 +64,6 @@ public class Jeton {
       for (int i=0;i<=20;i++) {
         String b = Integer.toString(i);
         tabInit[i] = "___";
-      }
-      String[] tabBleu = new String[NCASES];
-      String[] tabRouge = new String[NCASES];
-      for (int i=0;i<10;i++) {
-        String b = Integer.toString(i);
-        tabBleu[i] = "B"+(i+1);
-        tabRouge[i] = "R"+(i+1);
       }
       return tabInit;
     }
@@ -107,8 +102,23 @@ public class Jeton {
      * @param pos position (indice) de l'emplacement où placer le jeton
      * @return true si le jeton a pu être posé, false sinon.
      */
-    public static boolean jouer(String couleur, int val, int pos){
-        throw new java.lang.UnsupportedOperationException("à compléter");
+    public static boolean jouer( String[] tabInit,String couleur, int val, int pos){
+      if (tabInit[pos]=="___"){
+        if (couleur=="B"){
+          tabInit[pos] = "B"+Integer.toString(val);
+          return true;
+          // return tabInit[pos];
+        }
+        if (couleur=="R"){
+          tabInit[pos] = "R"+Integer.toString(val);
+          return true;
+          // return tabInit[pos];
+        }
+
+    // }
+    //   else{
+      }
+      return false;
     }
 
     /**
