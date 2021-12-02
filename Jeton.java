@@ -58,26 +58,46 @@ public class Jeton {
      * Initialise le jeu avec un double/triple underscore à chaque case, signifiant 'case vide'
      */
     public static String[] initJeu() {
-      String[] tabInit = new String[20];
-        for (int i=0;i<20;i++) {
-          tabInit[i] = "___";
-        }
-        return tabInit;
+      String[] tabInit = new String[NCASES];
+      for (int i=0;i<=20;i++) {
+        String b = Integer.toString(i);
+        tabInit[i] = "___";
+      }
+      String[] tabBleu = new String[NCASES];
+      String[] tabRouge = new String[NCASES];
+      for (int i=0;i<10;i++) {
+        String b = Integer.toString(i);
+        tabBleu[i] = "B"+(i+1);
+        tabRouge[i] = "R"+(i+1);
+      }
+      return tabInit;
     }
 
     /**
      * Affiche le plateau de jeu en mode texte
      */
     public static void afficheJeu(String[] tabInit){
-      for (int y=0;y<=6;y++) {
-        int a=0;
+      int a=0;
+      int espace=10;
+      for (int y=0;y<NLIGNES;y++) {
         System.out.println();
-        for (int z=0;z<y;z++) {
-          System.out.print(tabInit[y+a]);
+        if (a+y<10) {
           System.out.print(" ");
-          a = a+1;
+        }
+        System.out.print(a+y+": ");
+        for (int u=0;u<espace;u=u+1) {
+          System.out.print(" ");
+        }
+        a=a+y;
+        int b=0;
+        espace=espace-2;
+        for (int z=0;z<=y;z++) {
+          System.out.print(tabInit[a+b]);
+          System.out.print(" ");
+          b=b+1;
         }
       }
+      System.out.println(" ");
     }
 
     /**
