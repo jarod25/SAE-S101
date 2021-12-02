@@ -107,16 +107,11 @@ public class Jeton {
         if (couleur=="B"){
           tabInit[pos] = "B"+Integer.toString(val);
           return true;
-          // return tabInit[pos];
         }
         if (couleur=="R"){
           tabInit[pos] = "R"+Integer.toString(val);
           return true;
-          // return tabInit[pos];
         }
-
-    // }
-    //   else{
       }
       return false;
     }
