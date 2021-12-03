@@ -52,6 +52,7 @@ public class Jeton {
               afficheJeu(tabInit);
             }
 
+
             int val = 1;
             int idCaseJouee;
 
@@ -180,8 +181,11 @@ public class Jeton {
      * Renvoie la position du jeton manquant
      * @return l'indice de la case non occupée
      */
-    public static int getIdVide(){
-        throw new java.lang.UnsupportedOperationException("à compléter");
+    public static int getIdVide(String[] initTab){
+        for(int k = 0; k < NCASES; k++)
+            if(initTab=="___"){
+                return k;
+            }
     }
 
     /**
