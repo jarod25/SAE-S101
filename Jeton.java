@@ -28,6 +28,7 @@ public class Jeton {
             String[] tabInit = initJeu();
             afficheJeu(tabInit);
             System.out.print(jouer(tabInit,"B",8,10));
+            System.out.print(jouer(tabInit,"R",10,15));
             afficheJeu(tabInit);
 
             int val = 1;
@@ -105,10 +106,18 @@ public class Jeton {
     public static boolean jouer( String[] tabInit,String couleur, int val, int pos){
       if (tabInit[pos]=="___"){
         if (couleur=="B"){
+          if (val<10) {
+            tabInit[pos] = "B"+Integer.toString(val)+" ";
+            return true;
+          }
           tabInit[pos] = "B"+Integer.toString(val);
           return true;
         }
         if (couleur=="R"){
+          if (val<10) {
+            tabInit[pos] = "B"+Integer.toString(val)+" ";
+            return true;
+          }
           tabInit[pos] = "R"+Integer.toString(val);
           return true;
         }
@@ -122,7 +131,13 @@ public class Jeton {
      * @return l'indice de la case la plus à gauche de la ligne
      */
     public static int idDebutLigne(int idLigne){
-        throw new java.lang.UnsupportedOperationException("à compléter");
+      int idCase = 0;
+      int x=0;
+      for (int j=0;j<=idLigne;j++) {
+        idCase=idCase+x;
+        x=x+1;
+      }
+      return idCase;
     }
 
     /**
@@ -131,7 +146,13 @@ public class Jeton {
      * @return l'indice de la case la plus à droite de la ligne
      */
     public static int idFinLigne(int idLigne){
-        throw new java.lang.UnsupportedOperationException("à compléter");
+      int idCase = 0;
+      int x=0;
+      for (int j=0;j<=idLigne;j++) {
+        idCase=idCase+x;
+        x=x+1;
+      }
+      return idCase;
     }
 
     /**
