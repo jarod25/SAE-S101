@@ -9,6 +9,10 @@ public class Jeton {
     static final int NCASES = 21;
     static final int NLIGNES = 6;
     static final String[] COULEURS = {"B", "R"};
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
 
     static boolean estOui(char reponse) {
         return "yYoO".indexOf(reponse) != -1;
@@ -107,18 +111,18 @@ public class Jeton {
       if (tabInit[pos]=="___"){
         if (couleur=="B"){
           if (val<10) {
-            tabInit[pos] = "B"+Integer.toString(val)+" ";
+              tabInit[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + " " + ANSI_RESET;
             return true;
           }
-          tabInit[pos] = "B"+Integer.toString(val);
+            tabInit[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + ANSI_RESET;
           return true;
         }
         if (couleur=="R"){
           if (val<10) {
-            tabInit[pos] = "B"+Integer.toString(val)+" ";
+              tabInit[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) +" " + ANSI_RESET;
             return true;
           }
-          tabInit[pos] = "R"+Integer.toString(val);
+            tabInit[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) + ANSI_RESET;
           return true;
         }
       }
