@@ -31,9 +31,26 @@ public class Jeton {
 
             String[] tabInit = initJeu();
             afficheJeu(tabInit);
-            System.out.print(jouer(tabInit,"B",8,10));
-            System.out.print(jouer(tabInit,"R",10,15));
-            afficheJeu(tabInit);
+            int n=0;
+            boolean b=false;
+            for (int i=1;i<=10;i++) {
+              System.out.println("Au tour des Bleus");
+              n = input.nextInt();
+              b = jouer(tabInit,"B",i,n);
+              while (b==false){
+                n = input.nextInt();
+                b = jouer(tabInit,"B",i,n);
+              }
+              afficheJeu(tabInit);
+              System.out.println("Au tour des Rouges");
+              n = input.nextInt();
+              b = jouer(tabInit,"R",i,n);
+              while (b==false){
+                n = input.nextInt();
+                b = jouer(tabInit,"R",i,n);
+              }
+              afficheJeu(tabInit);
+            }
 
             int val = 1;
             int idCaseJouee;
