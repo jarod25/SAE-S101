@@ -20,11 +20,14 @@ public class Jeton {
 
     public static void main(String[] args) throws InterruptedException {
 
+      StdDraw.setXscale(-512, 512);
+      StdDraw.setYscale(-512, 512);
         boolean newDeal;
         int scoreBleus = 0;
         int scoreRouges = 0;
 
         do {
+            drawCircle();
             System.out.println("Jouer seul ? ");
             char reponse = input.next().charAt(0);
             boolean single = estOui(reponse);
@@ -236,5 +239,35 @@ public class Jeton {
 		cela peut s'avérer utile lors du développement.
 	*/
         return Integer.parseInt(input.next());
+
+    }
+    public static void drawCircle(){
+      StdDraw.setPenRadius(0.001);
+      StdDraw.setPenColor(StdDraw.BLACK);
+      StdDraw.circle(0,250,50);
+      StdDraw.circle(-55,150,50);
+      StdDraw.circle(55,150,50);
+      StdDraw.circle(-110,50,50);
+      StdDraw.circle(0,50,50);
+      StdDraw.circle(110,50,50);
+      StdDraw.circle(-165,-50,50);
+      StdDraw.circle(-55,-50,50);
+      StdDraw.circle(55,-50,50);
+      StdDraw.circle(165,-50,50);
+      StdDraw.circle(-220,-150,50);
+      StdDraw.circle(-110,-150,50);
+      StdDraw.circle(0,-150,50);
+      StdDraw.circle(110,-150,50);
+      StdDraw.circle(220,-150,50);
+      StdDraw.circle(-275,-250,50);
+      StdDraw.circle(-165,-250,50);
+      StdDraw.circle(-55,-250,50);
+      StdDraw.circle(55,-250,50);
+      StdDraw.circle(165,-250,50);
+      StdDraw.circle(275,-250,50);
+      StdDraw.setPenColor(StdDraw.BLUE);
+      StdDraw.filledCircle(-350,350,50);
+      StdDraw.setPenColor(StdDraw.RED);
+      StdDraw.filledCircle(350,350,50);
     }
 }
