@@ -51,7 +51,7 @@ public class Jeton {
               }
               afficheJeu(tabInit);
             }
-
+            System.out.println(sommeVoisins(tabInit,"R"));
 
             int val = 1;
             int idCaseJouee;
@@ -60,8 +60,9 @@ public class Jeton {
 			le code de votre partie ici
 		*/
 
-            int sumR = sommeVoisins("R");
-            int sumB = sommeVoisins("B");
+            int sumR = 1;/*sommeVoisins(tabInit,"R");*/
+            int sumB = 0;/*sommeVoisins(tabInit,"B");*/
+            System.out.println(sumR);
 
             if ( sumB < sumR)
                 System.out.println("Les bleus gagnent par "+sumB+" à "+sumR);
@@ -152,40 +153,43 @@ public class Jeton {
      * @param idLigne indice de la ligne. La première ligne est la ligne #0.
      * @return l'indice de la case la plus à gauche de la ligne
      */
-    public static int idDebutLigne(int idLigne){
-      int idCase = 0;
-      int x=0;
-      for (int j=0;j<=idLigne;j++) {
-        idCase=idCase+x;
-        x=x+1;
-      }
-      return idCase;
-    }
+     public static int idDebutLigne(int idLigne){
+       int idCase = 0;
+       int x=0;
+       for (int j=0;j<=idLigne;j++) {
+         idCase=idCase+x;
+         x=x+1;
+       }
+       return idCase;
+     }
 
     /**
      * Retourne l'indice de la case terminant la ligne idLigne
      * @param idLigne indice de la ligne. La première ligne est la ligne #0.
      * @return l'indice de la case la plus à droite de la ligne
      */
-    public static int idFinLigne(int idLigne){
-      int idCase = 0;
-      int x=0;
-      for (int j=0;j<=idLigne;j++) {
-        idCase=idCase+x;
-        x=x+1;
-      }
-      return idCase;
-    }
+     public static int idFinLigne(int idLigne){
+       int idCase = 0;
+       int x=0;
+       for (int j=0;j<=idLigne;j++) {
+         idCase=idCase+x;
+         x=x+1;
+       }
+       return idCase+x-1;
+     }
+
 
     /**
      * Renvoie la position du jeton manquant
      * @return l'indice de la case non occupée
      */
     public static int getIdVide(String[] initTab){
-        for(int k = 0; k < NCASES; k++)
-            if(initTab=="___"){
-                return k;
-            }
+      for(int k = 0; k < NCASES; k++){
+        if(initTab[k]=="___"){
+          return k;
+        }
+      }
+      return 0;
     }
 
     /**
@@ -195,8 +199,26 @@ public class Jeton {
      * @param col couleur des voisins considérés
      * @return somme des poids
      */
-    public static int sommeVoisins(String col){
-        throw new java.lang.UnsupportedOperationException("à compléter");
+     /*RETURN INT!!!*/
+    public static String sommeVoisins( String[] tabInit, String col){
+        int k = getIdVide(tabInit);
+        int l = 0;
+        while(k>idDebutLigne(l)){
+          l=l+1;
+        }
+        String resultat="";
+        if (idDebutLigne(l)==k) {
+          resultat=tabInit[k-l]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
+        }
+        else{
+          if (idFinLigne(l)==k) {
+            resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
+          }
+          else{
+            resultat=tabInit[k-l]+tabInit[k-l+1]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l]+tabInit[k+l+1];
+          }
+        }
+        return resultat;
     }
 
     /**
