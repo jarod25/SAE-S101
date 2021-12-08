@@ -203,9 +203,10 @@ public class Jeton {
     public static String sommeVoisins( String[] tabInit, String col){
         int k = getIdVide(tabInit);
         int l = 0;
-        while(k>idDebutLigne(l)){
+        while(k>=idDebutLigne(l)){
           l=l+1;
         }
+        l=l-1;
         String resultat="";
         if (idDebutLigne(l)==k) {
           resultat=tabInit[k-l]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
@@ -215,7 +216,7 @@ public class Jeton {
             resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
           }
           else{
-            resultat=tabInit[k-l]+tabInit[k-l+1]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l]+tabInit[k+l+1];
+            resultat=tabInit[k-l+1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
           }
         }
         return resultat;
