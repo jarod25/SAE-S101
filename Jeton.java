@@ -34,9 +34,13 @@ public class Jeton {
 
             String[] tabInit = initJeu();
             afficheJeu(tabInit);
+		
+	    int val = 1;
+            int idCaseJouee;
+		
             int n=0;
             boolean b=false;
-            for (int i=1;i<=10;i++) {
+            for (int i=1;i<=(NCASES-1)/2;i++) {
               System.out.println("Au tour des Bleus");
               n = input.nextInt();
               b = jouer(tabInit,"B",i,n);
@@ -55,9 +59,6 @@ public class Jeton {
               afficheJeu(tabInit);
             }
             System.out.println(sommeVoisins(tabInit,"R"));
-
-            int val = 1;
-            int idCaseJouee;
 
 		/*
 			le code de votre partie ici
@@ -88,7 +89,7 @@ public class Jeton {
      */
     public static String[] initJeu() {
       String[] tabInit = new String[NCASES];
-      for (int i=0;i<=20;i++) {
+      for (int i=0;i<=NCASES-1;i++) {
         String b = Integer.toString(i);
         tabInit[i] = "___";
       }
@@ -100,7 +101,7 @@ public class Jeton {
      */
     public static void afficheJeu(String[] tabInit){
       int a=0;
-      int espace=10;
+      int espace=NLIGNES*2;
       for (int y=0;y<NLIGNES;y++) {
         System.out.println();
         if (a+y<10) {
@@ -211,17 +212,34 @@ public class Jeton {
         }
         l=l-1;
         String resultat="";
-        if (idDebutLigne(l)==k) {
+        /* Si vide est sur la dernière ligne*/
+        if (NLIGNES-1==l) {
+          if (idDebutLigne(NLIGNES-1)==k) {
+            resultat=tabInit[k-l]+tabInit[k+1];
+            return resultat;
+          }
+          if (idFinLigne(NLIGNES-1)==k) {
+            resultat=tabInit[k-l-1]+tabInit[k-1];
+            return resultat;
+          }
+          resultat=tabInit[k-l-1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1];
+          return resultat;
+        }
+        /* Si vide est sur la première ligne*/
+        if (k==0) {
+          resultat=tabInit[1]+tabInit[2];
+          return resultat;
+        }
+        /* Si vide est sur une ligne quelconque*/
+        if (idDebutLigne(l)==k && k!=0) {
           resultat=tabInit[k-l]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
+          return resultat;
         }
-        else{
-          if (idFinLigne(l)==k) {
-            resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
-          }
-          else{
-            resultat=tabInit[k-l+1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
-          }
+        if (idFinLigne(l)==k && k!=0) {
+          resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
+          return resultat;
         }
+        resultat=tabInit[k-l+1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
         return resultat;
     }
 
