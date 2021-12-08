@@ -208,17 +208,34 @@ public class Jeton {
         }
         l=l-1;
         String resultat="";
-        if (idDebutLigne(l)==k) {
+        /* Si vide est sur la dernière ligne*/
+        if (NLIGNES-1==l) {
+          if (idDebutLigne(NLIGNES-1)==k) {
+            resultat=tabInit[k-l]+tabInit[k+1];
+            return resultat;
+          }
+          if (idFinLigne(NLIGNES-1)==k) {
+            resultat=tabInit[k-l-1]+tabInit[k-1];
+            return resultat;
+          }
+          resultat=tabInit[k-l-1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1];
+          return resultat;
+        }
+        /* Si vide est sur la première ligne*/
+        if (k==0) {
+          resultat=tabInit[1]+tabInit[2];
+          return resultat;
+        }
+        /* Si vide est sur une ligne quelconque*/
+        if (idDebutLigne(l)==k && k!=0) {
           resultat=tabInit[k-l]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
+          return resultat;
         }
-        else{
-          if (idFinLigne(l)==k) {
-            resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
-          }
-          else{
-            resultat=tabInit[k-l+1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
-          }
+        if (idFinLigne(l)==k && k!=0) {
+          resultat=tabInit[k-l-1]+tabInit[k-1]+tabInit[k+l+1]+tabInit[k+l+2];
+          return resultat;
         }
+        resultat=tabInit[k-l+1]+tabInit[k-l]+tabInit[k-1]+tabInit[k+1]+tabInit[k+l+1]+tabInit[k+l+2];
         return resultat;
     }
 
