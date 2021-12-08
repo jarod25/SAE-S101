@@ -97,7 +97,7 @@ public class Jeton {
      */
     public static void afficheJeu(String[] tabInit){
       int a=0;
-      int espace=10;
+      int espace=NLIGNES*2;
       for (int y=0;y<NLIGNES;y++) {
         System.out.println();
         if (a+y<10) {
