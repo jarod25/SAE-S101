@@ -33,7 +33,7 @@ public class Jeton {
             afficheJeu(tabInit);
             int n=0;
             boolean b=false;
-            for (int i=1;i<=10;i++) {
+            for (int i=1;i<=(NCASES-1)/2;i++) {
               System.out.println("Au tour des Bleus");
               n = input.nextInt();
               b = jouer(tabInit,"B",i,n);
@@ -85,7 +85,7 @@ public class Jeton {
      */
     public static String[] initJeu() {
       String[] tabInit = new String[NCASES];
-      for (int i=0;i<=20;i++) {
+      for (int i=0;i<=NCASES-1;i++) {
         String b = Integer.toString(i);
         tabInit[i] = "___";
       }
