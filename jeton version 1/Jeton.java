@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.awt.Font;
 
 /**
  * Created by zulupero on 24/09/2021.
@@ -13,6 +14,7 @@ public class Jeton {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
     public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    static final int SIZE = 512;
 
     static boolean estOui(char reponse) {
         return "yYoO".indexOf(reponse) != -1;
@@ -20,11 +22,14 @@ public class Jeton {
 
     public static void main(String[] args) throws InterruptedException {
 
+      StdDraw.setXscale(-SIZE, SIZE);
+      StdDraw.setYscale(-SIZE, SIZE);
         boolean newDeal;
         int scoreBleus = 0;
         int scoreRouges = 0;
 
         do {
+          drawCircle();
             System.out.println("Jouer seul ? ");
             char reponse = input.next().charAt(0);
             boolean single = estOui(reponse);
@@ -122,26 +127,39 @@ public class Jeton {
      * @return true si le jeton a pu être posé, false sinon.
      */
     public static boolean jouer( String couleur, int val, int pos){
-      if (pos>=0 && pos <NCASES && state[pos]=="___"){
-        if (couleur=="B"){
-          if (val<10) {
-              state[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + " " + ANSI_RESET;
-            return true;
-          }
-            state[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + ANSI_RESET;
-          return true;
-        }
-        if (couleur=="R"){
-          if (val<10) {
-              state[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) +" " + ANSI_RESET;
-            return true;
-          }
-            state[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) + ANSI_RESET;
-          return true;
-        }
-      }
-      return false;
-    }
+      int x=0;
+      int y=0;
+          String nombre;
+          nombre = String.valueOf(val);
+          Font font = new Font("Cambria", 0, 32);
+          StdDraw.setFont(font);
+          StdDraw.text(x,y,nombre);
+             if (pos>=0 && pos <NCASES && state[pos]=="___"){
+                 if (couleur=="B"){
+                     StdDraw.setPenColor(StdDraw.BLUE);
+                     if (val<10) {
+                         state[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + " " + ANSI_RESET;
+                         StdDraw.filledCircle(x,y,50);
+                         return true;
+                     }
+                     state[pos] = ANSI_BLUE_BACKGROUND + ANSI_WHITE + "B"+Integer.toString(val) + ANSI_RESET;
+                     StdDraw.filledCircle(x,y,50);
+                     return true;
+                 }
+                 if (couleur=="R"){
+                     StdDraw.setPenColor(StdDraw.RED);
+                     if (val<10) {
+                         state[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) +" " + ANSI_RESET;
+                         StdDraw.filledCircle(x,y,50);
+                         return true;
+                     }
+                     state[pos] = ANSI_RED_BACKGROUND + ANSI_WHITE + "R"+Integer.toString(val) + ANSI_RESET;
+                     StdDraw.filledCircle(x,y,50);
+                     return true;
+                 }
+             }
+             return false;
+         }
 
     /**
      * Retourne l'indice de la case débutant la ligne idLigne
@@ -293,5 +311,61 @@ public class Jeton {
 		cela peut s'avérer utile lors du développement.
 	*/
         return Integer.parseInt(input.next());
+    }
+    
+    public static void drawCircle(){
+      StdDraw.setPenRadius(0.001);
+      StdDraw.setPenColor(StdDraw.BLACK);
+      int idcase = 0;
+      int x=0;
+      int y=250;
+      for (int i = 1 ; i <= NLIGNES ; i++ ) {  //parcours les lignes
+         for ( int j = 1 ; j <= i ; j++) {
+           StdDraw.circle(i,j,50);// parcours les valeur sur chaque ligne
+            // afficher la case idcase
+            idcase++; // numéro de la case
+         }
+
+      }
+        for(int c=0; c<NLIGNES;c++) {
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
+        x=55;
+        y=150;
+        for(int l=0; l<NLIGNES-1; l++){
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
+        x=110;
+        y=50;
+        for(int c=0; c<NLIGNES-2;c++) {
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
+        x=165;
+        y=(-50);
+        for(int l=0; l<NLIGNES-3; l++){
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
+        x=220;
+        y=(-150);
+        for(int c=0; c<NLIGNES-4;c++) {
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
+        x=275;
+        y=(-250);
+        for(int l=0; l<NLIGNES-5; l++){
+          StdDraw.circle(x,y,50);
+          y-=100;
+          x-=55;
+        }
     }
 }
