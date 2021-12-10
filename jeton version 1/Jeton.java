@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Jeton {
     static final Scanner input = new Scanner(System.in);
     public static String[] state;
-    static final int NCASES = 21;
-    static final int NLIGNES = 6;
+    static final int NCASES = 15;
+    static final int NLIGNES = 5;
     static final String[] COULEURS = {"B", "R"};
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_WHITE = "\u001B[37m";
@@ -55,10 +55,6 @@ public class Jeton {
               }
               afficheJeu();
             }
-
-		/*
-			le code de votre partie ici
-		*/
 
             int sumR = sommeVoisins("R");
             int sumB = sommeVoisins("B");
@@ -207,7 +203,7 @@ public class Jeton {
         }
         l=l-1;
         int resultat=0;
-        /* Si vide est sur la dernière ligne*/
+        /* Si vide est sur la dernière ligne à gauche*/
         if (NLIGNES-1==l) {
           if (idDebutLigne(NLIGNES-1)==k) {
             if (state[k-l].contains(col)==true)
@@ -216,6 +212,7 @@ public class Jeton {
               resultat=resultat+Integer.valueOf((state[k+1].substring(11,13)).replaceAll("\\s+",""));
             return resultat;
           }
+          /* Si vide est sur la dernière ligne à droite*/
           if (idFinLigne(NLIGNES-1)==k) {
             if (state[k-l-1].contains(col)==true)
               resultat=resultat+Integer.valueOf((state[k-l-1].substring(11,13)).replaceAll("\\s+",""));
@@ -223,6 +220,7 @@ public class Jeton {
               resultat=resultat+Integer.valueOf((state[k-1].substring(11,13)).replaceAll("\\s+",""));
             return resultat;
           }
+          /* Si vide est sur la dernière ligne au milieu*/
           if (state[k-l-1].contains(col)==true)
             resultat=resultat+Integer.valueOf((state[k-l-1].substring(11,13)).replaceAll("\\s+",""));
           if (state[k-l].contains(col)==true)
