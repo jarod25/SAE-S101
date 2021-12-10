@@ -64,8 +64,8 @@ public class Jeton {
 			le code de votre partie ici
 		*/
 
-            int sumR = 1;/*sommeVoisins(tabInit,"R");*/
-            int sumB = 0;/*sommeVoisins(tabInit,"B");*/
+            int sumR = 1; /*sommeVoisins(tabInit,"R");*/
+            int sumB = 0; /*sommeVoisins(tabInit,"B");*/
             System.out.println(sumR);
 
             if ( sumB < sumR)
