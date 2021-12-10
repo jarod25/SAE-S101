@@ -34,10 +34,10 @@ public class Jeton {
 
             String[] tabInit = initJeu();
             afficheJeu(tabInit);
-		
+
 	    int val = 1;
             int idCaseJouee;
-		
+
             int n=0;
             boolean b=false;
             for (int i=1;i<=(NCASES-1)/2;i++) {
