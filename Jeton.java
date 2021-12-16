@@ -138,8 +138,8 @@ public class Jeton {
      * @return true si le jeton a pu être posé, false sinon.
      */
     public static boolean jouer(String couleur, int val, int pos){
-      if (pos>=0 && pos <NCASES && state[pos]=="___"){
-        if (couleur=="B"){
+      if (pos>=0 && pos <NCASES && state[pos].equals("___")){
+        if (couleur.equals("B")){
           if (val<10) {
               state[pos] = FONDB + TEXTBC + "B"+Integer.toString(val) + " " + RESET;
             return true;
@@ -147,7 +147,7 @@ public class Jeton {
             state[pos] = FONDB + TEXTBC + "B"+Integer.toString(val) + RESET;
           return true;
         }
-        if (couleur=="R"){
+        if (couleur.equals("R")){
           if (val<10) {
               state[pos] = FONDR + TEXTBC + "R"+Integer.toString(val) +" " + RESET;
             return true;
@@ -159,229 +159,13 @@ public class Jeton {
       return false;
     }
 
-    public static void jouerStddraw(String couleur, int val, int pos){
-    double xb=RADIUS;
-    double yb=SIZE-RADIUS;
-    double xr=SIZE-RADIUS;
-    double yr=SIZE-RADIUS;
-    String nombre = String.valueOf(val+1);
-    int nb = Integer.parseInt(nombre);
-    String value = String.valueOf(val);
-    if (pos>=0 && pos <NCASES && state[pos].equals("___")){
-      if (couleur.equals("B")){
-        StdDraw.setPenColor(StdDraw.BLUE);
-        if (val<10) {
-          StdDraw.filledCircle(xcase[pos],ycase[pos],RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xcase[pos],ycase[pos],value);
-          StdDraw.setPenColor(StdDraw.BLUE);
-          StdDraw.filledCircle(xb,yb,RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xb,yb,nombre);
-          return;
-        }
-          nombre = String.valueOf(val);
-          StdDraw.setPenColor(StdDraw.BLUE);
-          StdDraw.filledCircle(xcase[pos],ycase[pos],RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xcase[pos],ycase[pos],value);
-          StdDraw.setPenColor(StdDraw.BLUE);
-          StdDraw.filledCircle(xb,yb,RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xb,yb,nombre);
-          if(nb>=NCASES/2){
-            StdDraw.setPenColor(StdDraw.GRAY);
-            StdDraw.filledCircle(xb,yb,RADIUS);
-          }
-          return;
-      }
-      if (couleur.equals("R")){
-        StdDraw.setPenColor(StdDraw.RED);
-        if (val<10) {
-          StdDraw.filledCircle(xcase[pos],ycase[pos],RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xcase[pos],ycase[pos],value);
-          StdDraw.setPenColor(StdDraw.RED);
-          StdDraw.filledCircle(xr,yr,RADIUS);
-          StdDraw.setPenColor(StdDraw.WHITE);
-          StdDraw.text(xr,yr,nombre);
-          return;
-        }
-        nombre = String.valueOf(val);
-        StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.filledCircle(xcase[pos],ycase[pos],RADIUS);
-        StdDraw.setPenColor(StdDraw.WHITE);
-        StdDraw.text(xcase[pos],ycase[pos],value);
-        StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.filledCircle(xr,yr,RADIUS);
-        StdDraw.setPenColor(StdDraw.WHITE);
-        StdDraw.text(xr,yr,nombre);
-        if(nb>=NCASES/2){
-          StdDraw.setPenColor(StdDraw.GRAY);
-          StdDraw.filledCircle(xr,yr,
-    
-
-/* BASQUIN Nicolas, KOHLER JAROD, S1A1*/
-
-import java.util.*;
-import java.awt.Font;
-
-/**
- * Created by zulupero on 24/09/2021.
- */
-public class Jeton {
-    static final Scanner input = new Scanner(System.in);
-    public static String[] state;
-    static final int NCASES = 21;
-    static final int NLIGNES = 6;
-    static final String[] COULEURS = {"B", "R"};
-    public static double[] xcase = new double[NCASES];
-    public static double[] ycase = new double[NCASES];
-    public static final String CLEAR = "\033\143"; //Clear le terminal
-    public static final String RESET = "\u001B[0m"; //Couleur par défaut du texte
-    public static final String TEXTBC = "\u001B[37m"; //Couleur blanche pour le texte
-    public static final String FONDR = "\u001B[41m"; //Fond rouge derrière le texte
-    public static final String FONDB = "\u001B[44m"; //Fond bleu derrière le texte
-    static final int SIZE = (NLIGNES+1)*(2^NLIGNES); //Taille de la fenêtre StdDraw
-    static final double RADIUS = SIZE/(NLIGNES*2); //Taille des cercles StdDraw
-
-
-    static boolean estOui(char reponse) {
-        return "yYoO".indexOf(reponse) != -1;
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-
-        StdDraw.setXscale(0, SIZE);
-        StdDraw.setYscale(0, SIZE);
-
-        boolean newDeal;
-        int scoreBleus = 0;
-        int scoreRouges = 0;
-
-        do {
-            System.out.println("Jouer seul ? ");
-            char reponse = input.next().charAt(0);
-            boolean single = estOui(reponse);
-
-            initJeu();
-            afficheJeu();
-            afficheJeton();
-
-            int val = 1;
-            int idCaseJouee;
-
-            boolean b=false;
-            for (int i=1;i<=(NCASES-1)/2;i++) {
-              System.out.println("Au tour des Bleus");
-              idCaseJouee = input.nextInt();
-              jouerStddraw("B",i,idCaseJouee);
-              b = jouer("B",i,idCaseJouee);
-              while (b==false){
-                idCaseJouee = input.nextInt();
-                jouerStddraw("B",i,idCaseJouee);
-                b = jouer("B",i,idCaseJouee);
-              }
-              afficheJeu();
-              System.out.println("Au tour des Rouges");
-              idCaseJouee = input.nextInt();
-              jouerStddraw("R",i,idCaseJouee);
-              b = jouer("R",i,idCaseJouee);
-              while (b==false){
-                idCaseJouee = input.nextInt();
-                jouerStddraw("R",i,idCaseJouee);
-                b = jouer("R",i,idCaseJouee);
-              }
-              afficheJeu();
-            }
-
-            int sumR = sommeVoisins("R");
-            int sumB = sommeVoisins("B");
-
-            if ( sumB < sumR)
-                System.out.println("Les bleus gagnent par "+sumB+" à "+sumR);
-            else if (sumB == sumR)
-                System.out.println("Égalité : "+sumB+" partout !");
-            else
-                System.out.println("Les rouges gagnent par "+sumR+" à "+sumB);
-
-            System.out.println("Nouvelle partie ? ");
-            reponse = input.next().charAt(0);
-            newDeal = estOui(reponse);
-            System.out.print(CLEAR);
-            StdDraw.clear();
-        } while (newDeal);
-        System.out.println("Bye Bye !");
-        System.exit(0);
-
-    }
 
     /**
-     * Initialise le jeu avec un double/triple underscore à chaque case, signifiant 'case vide'
-     */
-    public static void initJeu() {
-      state = new String[NCASES];
-      for (int i=0;i<NCASES;i++) {
-        state[i] = "___";
-      }
-    }
-
-    /**
-     * Affiche le plateau de jeu en mode texte
-     */
-    public static void afficheJeu(){
-      int a=0;
-      int espace=NLIGNES*2;
-      for (int y=0;y<NLIGNES;y++) {
-        System.out.println();
-        if (a+y<10) {
-          System.out.print(" ");
-        }
-        System.out.print(a+y+": ");
-        for (int u=0;u<espace;u=u+1) {
-          System.out.print(" ");
-        }
-        a=a+y;
-        int b=0;
-        espace=espace-2;
-        for (int z=0;z<=y;z++) {
-          System.out.print(state[a+b]);
-          System.out.print(" ");
-          b=b+1;
-        }
-      }
-      System.out.println(" ");
-    }
-
-    /**
-     * Place un jeton sur le plateau, si possible.
-     * @param couleur couleur du jeton : "B" ou "R"
-     * @param val valeur faciale du jeton
-     * @param pos position (indice) de l'emplacement où placer le jeton
-     * @return true si le jeton a pu être posé, false sinon.
-     */
-    public static boolean jouer(String couleur, int val, int pos){
-      if (pos>=0 && pos <NCASES && state[pos]=="___"){
-        if (couleur=="B"){
-          if (val<10) {
-              state[pos] = FONDB + TEXTBC + "B"+Integer.toString(val) + " " + RESET;
-            return true;
-          }
-            state[pos] = FONDB + TEXTBC + "B"+Integer.toString(val) + RESET;
-          return true;
-        }
-        if (couleur=="R"){
-          if (val<10) {
-              state[pos] = FONDR + TEXTBC + "R"+Integer.toString(val) +" " + RESET;
-            return true;
-          }
-            state[pos] = FONDR + TEXTBC + "R"+Integer.toString(val) + RESET;
-          return true;
-        }
-      }
-      return false;
-    }
-
+    * Place un jeton sur le plateau StdDraw, si possible.
+    * @param couleur couleur du jeton : "B" ou "R"
+    * @param val valeur faciale du jeton
+    * @param pos position (indice) de l'emplacement où placer le jeton
+    */
     public static void jouerStddraw(String couleur, int val, int pos){
     double xb=RADIUS;
     double yb=SIZE-RADIUS;
@@ -415,9 +199,7 @@ public class Jeton {
           StdDraw.setPenColor(StdDraw.GRAY);
           StdDraw.filledCircle(xr,yr,RADIUS);
         }
-        return;
       }
-      return;
     }
     return;
   }
@@ -459,7 +241,7 @@ public class Jeton {
      */
     public static int getIdVide(){
       for(int k = 0; k < NCASES; k++){
-        if(state[k]=="___"){
+        if(state[k].equals("___")){
           return k;
         }
       }
