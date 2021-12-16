@@ -12,15 +12,15 @@ public class Jeton {
     static final int NCASES = 21;
     static final int NLIGNES = 6;
     static final String[] COULEURS = {"B", "R"};
-    public static double[] xcase = new double[NCASES];
-    public static double[] ycase = new double[NCASES];
+    static double[] xcase = new double[NCASES];
+    static double[] ycase = new double[NCASES];
     public static final String CLEAR = "\033\143"; //Clear le terminal
     public static final String RESET = "\u001B[0m"; //Couleur par défaut du texte
     public static final String TEXTBC = "\u001B[37m"; //Couleur blanche pour le texte
     public static final String FONDR = "\u001B[41m"; //Fond rouge derrière le texte
     public static final String FONDB = "\u001B[44m"; //Fond bleu derrière le texte
     static final int SIZE = 1000; //Taille de la fenêtre StdDraw
-    static final double RADIUS = SIZE/(NLIGNES*2); //Taille des cercles StdDraw
+    static final double RADIUS = (SIZE/(NLIGNES*2)); //Taille des cercles StdDraw
 
 
     static boolean estOui(char reponse) {
@@ -48,39 +48,45 @@ public class Jeton {
             int val = 1;
             int idCaseJouee;
 
-            boolean b=false;
-            for (int i=1;i<=(NCASES-1)/2;i++) {
+            boolean b;
+            for (val=1;val<=(NCASES-1)/2;val++) {
               System.out.println("Au tour des Bleus");
               idCaseJouee = input.nextInt();
-              jouerStddraw("B",i,idCaseJouee);
-              b = jouer("B",i,idCaseJouee);
-              while (b==false){
+              jouerStddraw("B",val,idCaseJouee);
+              b = jouer("B",val,idCaseJouee);
+              while (!b){
                 idCaseJouee = input.nextInt();
-                jouerStddraw("B",i,idCaseJouee);
-                b = jouer("B",i,idCaseJouee);
+                jouerStddraw("B",val,idCaseJouee);
+                b = jouer("B",val,idCaseJouee);
               }
               afficheJeu();
               System.out.println("Au tour des Rouges");
               idCaseJouee = input.nextInt();
-              jouerStddraw("R",i,idCaseJouee);
-              b = jouer("R",i,idCaseJouee);
-              while (b==false){
+              jouerStddraw("R",val,idCaseJouee);
+              b = jouer("R",val,idCaseJouee);
+              while (!b){
                 idCaseJouee = input.nextInt();
-                jouerStddraw("R",i,idCaseJouee);
-                b = jouer("R",i,idCaseJouee);
+                jouerStddraw("R",val,idCaseJouee);
+                b = jouer("R",val,idCaseJouee);
               }
               afficheJeu();
             }
 
             int sumR = sommeVoisins("R");
             int sumB = sommeVoisins("B");
-
-            if ( sumB < sumR)
-                System.out.println("Les bleus gagnent par "+sumB+" à "+sumR);
-            else if (sumB == sumR)
-                System.out.println("Égalité : "+sumB+" partout !");
-            else
-                System.out.println("Les rouges gagnent par "+sumR+" à "+sumB);
+            if ( sumB < sumR) {
+                System.out.println("Les bleus gagnent par " + sumB + " à " + sumR);
+                scoreBleus++;
+            }
+            else if (sumB == sumR) {
+                System.out.println("Égalité : " + sumB + " partout !");
+            }
+            else {
+                System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
+                scoreRouges++;
+            }
+            System.out.println("Score Bleu :" + scoreBleus);
+            System.out.println("Score Rouge :" + scoreRouges);
 
             System.out.println("Nouvelle partie ? ");
             reponse = input.next().charAt(0);
@@ -356,6 +362,10 @@ public class Jeton {
         return Integer.parseInt(input.next());
     }
 
+    /**
+     * Renvoie dans le tableau xcase les positions x de chaque cercle
+     * Renvoie dans le tableau ycase les positions y de chaque cercle
+     */
     public static void afficheJeton(){
       double xb=RADIUS;
       double yb=SIZE-RADIUS;
@@ -377,9 +387,9 @@ public class Jeton {
       double y=SIZE+RADIUS;
       String id;
       for (int i = 0 ; i < NLIGNES ; i++ ) {  //parcours les lignes
-        y-=((SIZE)/NLIGNES);
+        y-=((SIZE)/NLIGNES);//division de int par int donc pas besoin de double
          for ( int j = 0 ; j <= i ; j++) { //parcours les cases par lignes
-           x=(SIZE/2)+(RADIUS*2)*j-(RADIUS*(i));
+           x=((SIZE/2)+(RADIUS*2)*j-(RADIUS*(i)));//division de int par int donc pas besoin de double
            StdDraw.circle(x,y,RADIUS);
            id = String.valueOf(idcase);
            StdDraw.text((x+(RADIUS*0.2)),y-(RADIUS*0.4),id);
