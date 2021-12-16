@@ -19,7 +19,7 @@ public class Jeton {
     public static final String TEXTBC = "\u001B[37m"; //Couleur blanche pour le texte
     public static final String FONDR = "\u001B[41m"; //Fond rouge derrière le texte
     public static final String FONDB = "\u001B[44m"; //Fond bleu derrière le texte
-    static final int SIZE = (NLIGNES+1)*(2^NLIGNES); //Taille de la fenêtre StdDraw
+    static final int SIZE = 1000; //Taille de la fenêtre StdDraw
     static final double RADIUS = SIZE/(NLIGNES*2); //Taille des cercles StdDraw
 
 
