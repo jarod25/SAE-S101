@@ -1,4 +1,4 @@
-/* BASQUIN Nicolas, KOHLER JAROD, S1A1*/
+/* BASQUIN Nicolas, KOHLER JAROD, groupe n°25 S1A1*/
 
 import java.util.*;
 import java.awt.Font;
@@ -61,14 +61,9 @@ public class Jeton {
               }
               afficheJeu();
               System.out.println("Au tour des Rouges");
-              idCaseJouee = input.nextInt();
+              idCaseJouee = iaRouge();
               jouerStddraw("R",val,idCaseJouee);
-              b = jouer("R",val,idCaseJouee);
-              while (!b){
-                idCaseJouee = input.nextInt();
-                jouerStddraw("R",val,idCaseJouee);
-                b = jouer("R",val,idCaseJouee);
-              }
+              jouer("R",val,idCaseJouee);
               afficheJeu();
             }
 
@@ -352,19 +347,16 @@ public class Jeton {
      * @return id de la case
      */
     public static int iaRouge(){
-	/*
-		Écire un véritable code sachant jouer.
-		La ligne du return ci-dessous doit donc naturellement aussi être ré-écrite.
-		Cette version ne permet que de reproduire le fonctionnement à 2 joueurs
-		tout en conservant l'appel à la fonction,
-		cela peut s'avérer utile lors du développement.
-	*/
-        return Integer.parseInt(input.next());
+      for (int i=0;i<NCASES;i++) {
+       if (state[i].equals("___"))
+         return i;
+      }
+      return NCASES-1;
     }
 
     /**
-     * Renvoie dans le tableau xcase les positions x de chaque cercle
-     * Renvoie dans le tableau ycase les positions y de chaque cercle
+     * Trace les cases vides sur StdDraw
+     * enregistre les coordonnées des cases dans xcase et ycase
      */
     public static void afficheJeton(){
       double xb=RADIUS;
