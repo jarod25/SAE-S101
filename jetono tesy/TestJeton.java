@@ -1,13 +1,13 @@
-/* BASQUIN Nicolas, KOHLER JAROD, groupe n°25 S1A1*/
+/* BASQUIN Nicolas, KOHLER JAROD, S1A1*/
 
 import java.util.*;
-import java.lang.Math;
 
 /**
  * Created by zulupero on 24/09/2021.
  */
-public class Jeton {
+public class TestJeton {
     static final Scanner input = new Scanner(System.in);
+    static Random rand = new Random();
     public static String[] state;
     static final int NCASES = 21;
     static final int NLIGNES = 6;
@@ -21,6 +21,7 @@ public class Jeton {
     public static final String FONDB = "\u001B[44m"; //Fond bleu derrière le texte
     static final int SIZE = 1000; //Taille de la fenêtre StdDraw
     static final double RADIUS = (SIZE/(NLIGNES*2)); //Taille des cercles StdDraw
+    static final String TOURBLEU = "Au tour du bleu";
 
 
     static boolean estOui(char reponse) {
@@ -48,103 +49,58 @@ public class Jeton {
 
             initJeu();
             if(single){
-                System.out.println("Bonne chance a toi contre l'IA !");
-                afficheJeu();
-                afficheJeton();
-                int val = 1;
-                int idCaseJouee;
-
-                boolean b;
-                for (val = 1; val <= (NCASES - 1) / 2; val++) {
-                    System.out.println("Au tour des Bleus");
-                    idCaseJouee = input.nextInt();
-                    jouerStddraw("B", val, idCaseJouee);
-                    b = jouer("B", val, idCaseJouee);
-                    while (!b) {
-                        idCaseJouee = input.nextInt();
-                        jouerStddraw("B", val, idCaseJouee);
-                        b = jouer("B", val, idCaseJouee);
-                    }
-                    afficheJeu();
-                    System.out.println("Au tour de l'IA");
-                    idCaseJouee = iaRouge();
-                    jouerStddraw("R", val, idCaseJouee);
-                    b = jouer("R", val, idCaseJouee);
-
-                    afficheJeu();
+              System.out.println("Quel IA voulez vous affronter ? (1 : facile, 2 : moyen, 3 : difiicile)");
+              int dif = input.nextInt();
+              switch(dif){
+                case 1:
+                  mainIA1();
+                  break;
+                case 2:
+                  mainIA2();
+                  break;
+                case 3:
+                  mainIA3();
+                  break;
+                default:
+                  mainIA1();
+              }
+                int sumR = sommeVoisins("R");
+                int sumB = sommeVoisins("B");
+                if ( sumB < sumR) {
+                    System.out.println("Les bleus gagnent par " + sumB + " à " + sumR);
+                    scoreBleus++;
                 }
+                else if (sumB == sumR) {
+                    System.out.println("Égalité : " + sumB + " partout !");
+                }
+                else {
+                    System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
+                    scoreRouges++;
+                }
+                System.out.println("Score Bleu :" + scoreBleus);
+                System.out.println("Score Rouge :" + scoreRouges);
             }
             else if(duo) {
-                System.out.println("Bonne chance a chacun !");
-                afficheJeu();
-                afficheJeton();
-
-                int val = 1;
-                int idCaseJouee;
-
-<<<<<<< Updated upstream
-            boolean b;
-            for (val=1;val<=(NCASES-1)/2;val++) {
-              System.out.println("Au tour des Bleus");
-              idCaseJouee = input.nextInt();
-              jouerStddraw("B",val,idCaseJouee);
-              b = jouer("B",val,idCaseJouee);
-              while (!b){
-                idCaseJouee = input.nextInt();
-                jouerStddraw("B",val,idCaseJouee);
-                b = jouer("B",val,idCaseJouee);
-              }
-              afficheJeu();
-              System.out.println("Au tour des Rouges");
-              idCaseJouee = iaRouge();
-              jouerStddraw("R",val,idCaseJouee);
-              jouer("R",val,idCaseJouee);
-              afficheJeu();
-=======
-                boolean b;
-                for (val = 1; val <= (NCASES - 1) / 2; val++) {
-                    System.out.println("Au tour des Bleus");
-                    idCaseJouee = input.nextInt();
-                    jouerStddraw("B", val, idCaseJouee);
-                    b = jouer("B", val, idCaseJouee);
-                    while (!b) {
-                        idCaseJouee = input.nextInt();
-                        jouerStddraw("B", val, idCaseJouee);
-                        b = jouer("B", val, idCaseJouee);
-                    }
-                    afficheJeu();
-                    System.out.println("Au tour des Rouges");
-                    idCaseJouee = input.nextInt();
-                    jouerStddraw("R", val, idCaseJouee);
-                    b = jouer("R", val, idCaseJouee);
-                    while (!b) {
-                        idCaseJouee = input.nextInt();
-                        jouerStddraw("R", val, idCaseJouee);
-                        b = jouer("R", val, idCaseJouee);
-                    }
-                    afficheJeu();
+              mainNotIA();
+                int sumR = sommeVoisins("R");
+                int sumB = sommeVoisins("B");
+                if ( sumB < sumR) {
+                    System.out.println("Les bleus gagnent par " + sumB + " à " + sumR);
+                    scoreBleus++;
                 }
-            }
+                else if (sumB == sumR) {
+                    System.out.println("Égalité : " + sumB + " partout !");
+                }
+                else {
+                    System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
+                    scoreRouges++;
+                }
+                System.out.println("Score Bleu :" + scoreBleus);
+                System.out.println("Score Rouge :" + scoreRouges);
+                }
             else{
-                System.out.println("Erreur, tapez o/O/y/Y pour jouer seul (contre l'IA) ou n/N pour jouer a 2");
->>>>>>> Stashed changes
+              System.out.println("Erreur, tapez o/O/y/Y pour jouer seul (contre l'IA) ou n/N pour jouer a 2");
             }
-
-            int sumR = sommeVoisins("R");
-            int sumB = sommeVoisins("B");
-            if ( sumB < sumR) {
-                System.out.println("Les bleus gagnent par " + sumB + " à " + sumR);
-                scoreBleus++;
-            }
-            else if (sumB == sumR) {
-                System.out.println("Égalité : " + sumB + " partout !");
-            }
-            else {
-                System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
-                scoreRouges++;
-            }
-            System.out.println("Score Bleu :" + scoreBleus);
-            System.out.println("Score Rouge :" + scoreRouges);
 
             System.out.println("Nouvelle partie ? ");
             reponse = input.next().charAt(0);
@@ -155,6 +111,141 @@ public class Jeton {
         System.out.println("Bye Bye !");
         System.exit(0);
 
+    }
+
+    public static void mainNotIA(){
+      System.out.println("Bonne chance a chacun !");
+      afficheJeu();
+      afficheJeton();
+
+      int val = 1;
+      int idCaseJouee;
+
+      boolean b;
+      for (val = 1; val <= (NCASES - 1) / 2; val++) {
+          System.out.println(TOURBLEU);
+          idCaseJouee = input.nextInt();
+          jouerStddraw("B", val, idCaseJouee);
+          b = jouer("B", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = input.nextInt();
+              jouerStddraw("B", val, idCaseJouee);
+              b = jouer("B", val, idCaseJouee);
+          }
+          afficheJeu();
+          System.out.println("Au tour des Rouges");
+          idCaseJouee = input.nextInt();
+          jouerStddraw("R", val, idCaseJouee);
+          b = jouer("R", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = input.nextInt();
+              jouerStddraw("R", val, idCaseJouee);
+              b = jouer("R", val, idCaseJouee);
+          }
+          afficheJeu();
+      }
+    }
+
+    public static void mainIA1(){
+      System.out.println("Bonne chance a toi contre l'IA facile !");
+      afficheJeu();
+      afficheJeton();
+      int val = 1;
+      int idCaseJouee;
+
+      boolean b;
+      for (val = 1; val <= (NCASES - 1) / 2; val++) {
+          System.out.println(TOURBLEU);
+          idCaseJouee = input.nextInt();
+          jouerStddraw("B", val, idCaseJouee);
+          b = jouer("B", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = input.nextInt();
+              jouerStddraw("B", val, idCaseJouee);
+              b = jouer("B", val, idCaseJouee);
+          }
+          afficheJeu();
+          System.out.println("Au tour de l'IA 1");
+          idCaseJouee = iaRouge1();
+          jouerStddraw("R", val, idCaseJouee);
+          b = jouer("R", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = iaRouge1();
+              jouerStddraw("R", val, idCaseJouee);
+              b = jouer("R", val, idCaseJouee);
+          }
+          System.out.println(idCaseJouee);
+
+          afficheJeu();
+      }
+    }
+
+    public static void mainIA2(){
+      System.out.println("Bonne chance a toi contre l'IA de niveau moyen !");
+      afficheJeu();
+      afficheJeton();
+      int val = 1;
+      int idCaseJouee;
+
+      boolean b;
+      for (val = 1; val <= (NCASES - 1) / 2; val++) {
+          System.out.println(TOURBLEU);
+          idCaseJouee = input.nextInt();
+          jouerStddraw("B", val, idCaseJouee);
+          b = jouer("B", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = input.nextInt();
+              jouerStddraw("B", val, idCaseJouee);
+              b = jouer("B", val, idCaseJouee);
+          }
+          afficheJeu();
+          System.out.println("Au tour de l'IA 2");
+          idCaseJouee = iaRouge2();
+          jouerStddraw("R", val, idCaseJouee);
+          b = jouer("R", val, idCaseJouee);
+          while (!b) {
+              idCaseJouee = iaRouge2();
+              jouerStddraw("R", val, idCaseJouee);
+              b = jouer("R", val, idCaseJouee);
+          }
+          System.out.println(idCaseJouee);
+
+          afficheJeu();
+      }
+    }
+
+    public static void mainIA3(){
+        System.out.println("Bonne chance a toi contre l'IA difficile !");
+        afficheJeu();
+        afficheJeton();
+        int val = 1;
+        int idCaseJouee;
+
+        boolean b;
+        for (val = 1; val <= (NCASES - 1) / 2; val++) {
+            System.out.println(TOURBLEU);
+            idCaseJouee = input.nextInt();
+            jouerStddraw("B", val, idCaseJouee);
+            b = jouer("B", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = input.nextInt();
+                jouerStddraw("B", val, idCaseJouee);
+                b = jouer("B", val, idCaseJouee);
+            }
+            afficheJeu();
+            System.out.println("Au tour de l'IA 1");
+            idCaseJouee = iaRouge3();
+            jouerStddraw("R", val, idCaseJouee);
+            b = jouer("R", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge3();
+                jouerStddraw("R", val, idCaseJouee);
+                b = jouer("R", val, idCaseJouee);
+            }
+            System.out.println(idCaseJouee);
+
+            afficheJeu();
+        }
     }
 
     /**
@@ -409,28 +500,50 @@ public class Jeton {
      * Algo naïf = la première case dispo
      * @return id de la case
      */
-    public static int iaRouge(){
-<<<<<<< Updated upstream
-      for (int i=0;i<NCASES;i++) {
-       if (state[i].equals("___"))
-         return i;
+     public static int iaRouge1(){
+       for (int i=0;i<NCASES;i++) {
+         if (state[i].equals("___"))
+          return i;
+        }
+        return NCASES-1;
+     }
+
+     /**
+     return Integer.parseInt(input.next());
+      * Renvoie le prochain coup à jouer pour les rouges
+      * IA place aléatoirement sur les espaces diponibles le jeton
+      * @return id de la case
+      */
+      public static int iaRouge2(){
+        double c;
+        String b="";
+          for(int i=0; i<NCASES; i++) {
+            c=Math.random();
+            c=c*i;
+            b=String.valueOf(Math.round(c));
+          }
+          return Integer.parseInt(b);
       }
-      return NCASES-1;
-=======
-        /*
-        Écire un véritable code sachant jouer.
-        La ligne du return ci-dessous doit donc naturellement aussi être ré-écrite.
-        Cette version ne permet que de reproduire le fonctionnement à 2 joueurs
-        tout en conservant l'appel à la fonction,
-        cela peut s'avérer utile lors du développement.
-        */
-        return Integer.parseInt(input.next());
->>>>>>> Stashed changes
+
+    /**
+     * Renvoie le prochain coup à jouer pour les rouges
+     * Stratégie de l'IA développée
+     * @return id de la case
+     */
+    public static int iaRouge3(){
+        double d;
+        String b="";
+        for(int i=0; i<NCASES; i++) {
+            d=Math.random();
+            d=d*i;
+            b=String.valueOf(Math.round(d));
+        }
+        return Integer.parseInt(b);
     }
 
     /**
-     * Trace les cases vides sur StdDraw
-     * enregistre les coordonnées des cases dans xcase et ycase
+     * Renvoie dans le tableau xcase les positions x de chaque cercle
+     * Renvoie dans le tableau ycase les positions y de chaque cercle
      */
     public static void afficheJeton(){
       double xb=RADIUS;
