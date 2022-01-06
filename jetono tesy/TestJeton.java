@@ -48,7 +48,7 @@ public class TestJeton {
 
             initJeu();
             if(single){
-              System.out.println("Quel IA voulez vous affronter ? (1 : facile, 2 : moyen, 3 : Combat entre les IA)");
+              System.out.println("Quel IA voulez vous affronter ? (1 : facile, 2 : moyen, 3 : difficile, 4 : Combat entre les IA 1 et 2, 5 : Combat entre les IA 1 et 3, 6 : Combat entre les IA 2 et 3, )");
               int dif = input.nextInt();
               switch(dif){
                 case 1:
@@ -58,10 +58,19 @@ public class TestJeton {
                   mainIA2();
                   break;
                 case 3:
-                  mainDoubleIA();
+                  mainIA3();
+                  break;
+                case 4:
+                  main12IA();
+                  break;
+                case 5:
+                  main13IA();
+                  break;
+                case 6:
+                  main23IA();
                   break;
                 default:
-                  mainIA1();
+                  main12IA();
               }
                 int sumR = sommeVoisins("R");
                 int sumB = sommeVoisins("B");
@@ -213,8 +222,42 @@ public class TestJeton {
       }
     }
 
-    public static void mainDoubleIA(){
-        System.out.println("Combat des 2 IA");
+    public static void mainIA3(){
+        System.out.println("Bonne chance a toi contre l'IA de niveau difficile !");
+        afficheJeu();
+        afficheJeton();
+        int val = 1;
+        int idCaseJouee;
+
+        boolean b;
+        for (val = 1; val <= (NCASES - 1) / 2; val++) {
+            System.out.println("Au tour du bleu");
+            idCaseJouee = input.nextInt();
+            jouerStddraw("B", val, idCaseJouee);
+            b = jouer("B", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = input.nextInt();
+                jouerStddraw("B", val, idCaseJouee);
+                b = jouer("B", val, idCaseJouee);
+            }
+            afficheJeu();
+            System.out.println("Au tour de l'IA 2");
+            idCaseJouee = iaRouge3();
+            jouerStddraw("R", val, idCaseJouee);
+            b = jouer("R", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge3();
+                jouerStddraw("R", val, idCaseJouee);
+                b = jouer("R", val, idCaseJouee);
+            }
+            System.out.println(idCaseJouee);
+
+            afficheJeu();
+        }
+    }
+
+    public static void main12IA(){
+        System.out.println("Combat des IA 1 et 2");
         afficheJeu();
         afficheJeton();
         int val = 1;
@@ -238,6 +281,74 @@ public class TestJeton {
             b = jouer("R", val, idCaseJouee);
             while (!b) {
                 idCaseJouee = iaRouge2();
+                jouerStddraw("R", val, idCaseJouee);
+                b = jouer("R", val, idCaseJouee);
+            }
+            System.out.println(idCaseJouee);
+
+            afficheJeu();
+        }
+    }
+
+    public static void main13IA(){
+        System.out.println("Combat des IA 1 et 3");
+        afficheJeu();
+        afficheJeton();
+        int val = 1;
+        int idCaseJouee;
+
+        boolean b;
+        for (val = 1; val <= (NCASES - 1) / 2; val++) {
+            System.out.println("Au tour de l'IA 1");
+            idCaseJouee = iaRouge1();
+            jouerStddraw("B", val, idCaseJouee);
+            b = jouer("B", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge1();
+                jouerStddraw("B", val, idCaseJouee);
+                b = jouer("B", val, idCaseJouee);
+            }
+            afficheJeu();
+            System.out.println("Au tour de l'IA 3");
+            idCaseJouee = iaRouge3();
+            jouerStddraw("R", val, idCaseJouee);
+            b = jouer("R", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge3();
+                jouerStddraw("R", val, idCaseJouee);
+                b = jouer("R", val, idCaseJouee);
+            }
+            System.out.println(idCaseJouee);
+
+            afficheJeu();
+        }
+    }
+
+    public static void main23IA(){
+        System.out.println("Combat des IA 2 et 3");
+        afficheJeu();
+        afficheJeton();
+        int val = 1;
+        int idCaseJouee;
+
+        boolean b;
+        for (val = 1; val <= (NCASES - 1) / 2; val++) {
+            System.out.println("Au tour de l'IA 2");
+            idCaseJouee = iaRouge2();
+            jouerStddraw("B", val, idCaseJouee);
+            b = jouer("B", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge2();
+                jouerStddraw("B", val, idCaseJouee);
+                b = jouer("B", val, idCaseJouee);
+            }
+            afficheJeu();
+            System.out.println("Au tour de l'IA 3");
+            idCaseJouee = iaRouge3();
+            jouerStddraw("R", val, idCaseJouee);
+            b = jouer("R", val, idCaseJouee);
+            while (!b) {
+                idCaseJouee = iaRouge3();
                 jouerStddraw("R", val, idCaseJouee);
                 b = jouer("R", val, idCaseJouee);
             }
