@@ -21,7 +21,6 @@ public class TestJeton {
     public static final String FONDB = "\u001B[44m"; //Fond bleu derrière le texte
     static final int SIZE = 1000; //Taille de la fenêtre StdDraw
     static final double RADIUS = (SIZE/(NLIGNES*2)); //Taille des cercles StdDraw
-    static final String TOURBLEU = "Au tour du bleu";
 
 
     static boolean estOui(char reponse) {
@@ -49,7 +48,7 @@ public class TestJeton {
 
             initJeu();
             if(single){
-              System.out.println("Quel IA voulez vous affronter ? (1 : facile, 2 : moyen, 3 : difiicile)");
+              System.out.println("Quel IA voulez vous affronter ? (1 : facile, 2 : moyen, 3 : Combat entre les IA)");
               int dif = input.nextInt();
               switch(dif){
                 case 1:
@@ -59,7 +58,7 @@ public class TestJeton {
                   mainIA2();
                   break;
                 case 3:
-                  mainIA3();
+                  mainDoubleIA();
                   break;
                 default:
                   mainIA1();
@@ -123,7 +122,7 @@ public class TestJeton {
 
       boolean b;
       for (val = 1; val <= (NCASES - 1) / 2; val++) {
-          System.out.println(TOURBLEU);
+          System.out.println("Au tour du bleu");
           idCaseJouee = input.nextInt();
           jouerStddraw("B", val, idCaseJouee);
           b = jouer("B", val, idCaseJouee);
@@ -155,7 +154,7 @@ public class TestJeton {
 
       boolean b;
       for (val = 1; val <= (NCASES - 1) / 2; val++) {
-          System.out.println(TOURBLEU);
+          System.out.println("Au tour du bleu");
           idCaseJouee = input.nextInt();
           jouerStddraw("B", val, idCaseJouee);
           b = jouer("B", val, idCaseJouee);
@@ -189,7 +188,7 @@ public class TestJeton {
 
       boolean b;
       for (val = 1; val <= (NCASES - 1) / 2; val++) {
-          System.out.println(TOURBLEU);
+          System.out.println("Au tour du bleu");
           idCaseJouee = input.nextInt();
           jouerStddraw("B", val, idCaseJouee);
           b = jouer("B", val, idCaseJouee);
@@ -214,8 +213,8 @@ public class TestJeton {
       }
     }
 
-    public static void mainIA3(){
-        System.out.println("Bonne chance a toi contre l'IA difficile !");
+    public static void mainDoubleIA(){
+        System.out.println("Combat des 2 IA");
         afficheJeu();
         afficheJeton();
         int val = 1;
@@ -223,22 +222,22 @@ public class TestJeton {
 
         boolean b;
         for (val = 1; val <= (NCASES - 1) / 2; val++) {
-            System.out.println(TOURBLEU);
-            idCaseJouee = input.nextInt();
+            System.out.println("Au tour de l'IA 1");
+            idCaseJouee = iaRouge1();
             jouerStddraw("B", val, idCaseJouee);
             b = jouer("B", val, idCaseJouee);
             while (!b) {
-                idCaseJouee = input.nextInt();
+                idCaseJouee = iaRouge1();
                 jouerStddraw("B", val, idCaseJouee);
                 b = jouer("B", val, idCaseJouee);
             }
             afficheJeu();
-            System.out.println("Au tour de l'IA 1");
-            idCaseJouee = iaRouge3();
+            System.out.println("Au tour de l'IA 2");
+            idCaseJouee = iaRouge2();
             jouerStddraw("R", val, idCaseJouee);
             b = jouer("R", val, idCaseJouee);
             while (!b) {
-                idCaseJouee = iaRouge3();
+                idCaseJouee = iaRouge2();
                 jouerStddraw("R", val, idCaseJouee);
                 b = jouer("R", val, idCaseJouee);
             }
@@ -524,22 +523,6 @@ public class TestJeton {
           }
           return Integer.parseInt(b);
       }
-
-    /**
-     * Renvoie le prochain coup à jouer pour les rouges
-     * Stratégie de l'IA développée
-     * @return id de la case
-     */
-    public static int iaRouge3(){
-        double d;
-        String b="";
-        for(int i=0; i<NCASES; i++) {
-            d=Math.random();
-            d=d*i;
-            b=String.valueOf(Math.round(d));
-        }
-        return Integer.parseInt(b);
-    }
 
     /**
      * Renvoie dans le tableau xcase les positions x de chaque cercle
