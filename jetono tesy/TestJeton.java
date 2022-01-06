@@ -604,6 +604,90 @@ public class TestJeton {
           resultat+=Integer.valueOf(state[k+l+2].substring(11,13).replaceAll("\\s",""));
         return resultat;
     }
+    
+        public static int sommeVoisins2(String col, int i){
+        int k = i;
+        int l = 0;
+        while(k>=idDebutLigne(l)){
+            l=l+1;
+        }
+        l=l-1;
+        int resultat=0;
+        /* Si vide est sur la dernière ligne à gauche*/
+        if (NLIGNES-1==l) {
+            if (idDebutLigne(NLIGNES-1)==k) {
+                if (state[k-l].contains(col))
+                    resultat+=Integer.valueOf(state[k-l].substring(11,13).replaceAll("\\s",""));
+                if (state[k+1].contains(col))
+                    resultat+=Integer.valueOf(state[k+1].substring(11,13).replaceAll("\\s",""));
+                return resultat;
+            }
+            /* Si vide est sur la dernière ligne à droite*/
+            if (idFinLigne(NLIGNES-1)==k) {
+                if (state[k-l-1].contains(col))
+                    resultat+=Integer.valueOf(state[k-l-1].substring(11,13).replaceAll("\\s",""));
+                if (state[k-1].contains(col))
+                    resultat+=Integer.valueOf(state[k-1].substring(11,13).replaceAll("\\s",""));
+                return resultat;
+            }
+            /* Si vide est sur la dernière ligne au milieu*/
+            if (state[k-l-1].contains(col))
+                resultat+=Integer.valueOf(state[k-l-1].substring(11,13).replaceAll("\\s",""));
+            if (state[k-l].contains(col))
+                resultat+=Integer.valueOf(state[k-l].substring(11,13).replaceAll("\\s",""));
+            if (state[k-1].contains(col))
+                resultat+=Integer.valueOf(state[k-1].substring(11,13).replaceAll("\\s",""));
+            if (state[k+1].contains(col))
+                resultat+=Integer.valueOf(state[k+1].substring(11,13).replaceAll("\\s",""));
+            return resultat;
+        }
+        /* Si vide est sur la première ligne*/
+        if (k==0) {
+            if (state[1].contains(col))
+                resultat+=Integer.valueOf(state[1].substring(11,13).replaceAll("\\s",""));
+            if (state[2].contains(col))
+                resultat+=Integer.valueOf(state[2].substring(11,13).replaceAll("\\s",""));
+            return resultat;
+        }
+        /* Si vide est sur une ligne quelconque à gauche de la ligne*/
+        if (idDebutLigne(l)==k && k!=0) {
+            if (state[k-l].contains(col))
+                resultat+=Integer.valueOf(state[k-l].substring(11,13).replaceAll("\\s",""));
+            if (state[k+1].contains(col))
+                resultat+=Integer.valueOf(state[k+1].substring(11,13).replaceAll("\\s",""));
+            if (state[k+l+1].contains(col))
+                resultat+=Integer.valueOf(state[k+l+1].substring(11,13).replaceAll("\\s",""));
+            if (state[k+l+2].contains(col))
+                resultat+=Integer.valueOf(state[k+l+2].substring(11,13).replaceAll("\\s",""));
+            return resultat;
+        }
+        /* Si vide est sur une state[k+1]ligne quelconque à droite de la ligne*/
+        if (idFinLigne(l)==k && k!=0) {
+            if (state[k-l-1].contains(col))
+                resultat+=Integer.valueOf(state[k-l-1].substring(11,13).replaceAll("\\s",""));
+            if (state[k-1].contains(col))
+                resultat+=Integer.valueOf(state[k-1].substring(11,13).replaceAll("\\s",""));
+            if (state[k+l+1].contains(col))
+                resultat+=Integer.valueOf(state[k+l+1].substring(11,13).replaceAll("\\s",""));
+            if (state[k+l+2].contains(col))
+                resultat+=Integer.valueOf(state[k+l+2].substring(11,13).replaceAll("\\s",""));
+            return resultat;
+        }
+        /* Si vide est sur une ligne quelconque au milieu de la ligne*/
+        if (state[k-l-1].contains(col))
+            resultat+=Integer.valueOf(state[k-l-1].substring(11,13).replaceAll("\\s",""));
+        if (state[k-l].contains(col))
+            resultat+=Integer.valueOf(state[k-l].substring(11,13).replaceAll("\\s",""));
+        if (state[k-1].contains(col))
+            resultat+=Integer.valueOf(state[k-1].substring(11,13).replaceAll("\\s",""));
+        if (state[k+1].contains(col))
+            resultat+=Integer.valueOf(state[k+1].substring(11,13).replaceAll("\\s",""));
+        if (state[k+l+1].contains(col))
+            resultat+=Integer.valueOf(state[k+l+1].substring(11,13).replaceAll("\\s",""));
+        if (state[k+l+2].contains(col))
+            resultat+=Integer.valueOf(state[k+l+2].substring(11,13).replaceAll("\\s",""));
+        return resultat;
+    }
 
     /**
      * Renvoie le prochain coup à jouer pour les rouges
@@ -634,6 +718,36 @@ public class TestJeton {
           }
           return Integer.parseInt(b);
       }
+    
+        public static int iaRouge2(int val){
+        double c;
+        String b="";
+        if (val==NCASES/2){
+            int i=0;
+            while(!state[i].equals("___")){
+                i+=1;
+            }
+            int vide1B = sommeVoisins("B");
+            int vide1R = sommeVoisins("R");
+            int vide1id = i;
+            i=i+1;
+            while(!state[i].equals("___")){
+                i+=1;
+            }
+            int vide2B = sommeVoisins2("B",i);
+            int vide2R = sommeVoisins2("R",i);
+            int vide2id = i;
+            if ((vide1R-vide1B)>=(vide2R-vide2B))
+                return vide1id;
+            return vide2id;
+        }
+        for(int i=0; i<NCASES; i++) {
+            c=Math.random();
+            c=c*i;
+            b=String.valueOf(Math.round(c));
+        }
+        return Integer.parseInt(b);
+    }
 
     /**
      * Renvoie dans le tableau xcase les positions x de chaque cercle
