@@ -39,6 +39,7 @@ public class Jeton {
         boolean newDeal;
         int scoreBleus = 0;
         int scoreRouges = 0;
+        int egalite = 0;
 
         do {
             System.out.println("Jouer seul ? ");
@@ -88,6 +89,7 @@ public class Jeton {
                 }
                 else if (sumB == sumR) {
                     System.out.println("Égalité : " + sumB + " partout !");
+                    egalite++;
                 }
                 else {
                     System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
@@ -95,6 +97,7 @@ public class Jeton {
                 }
                 System.out.println("Score Bleu :" + scoreBleus);
                 System.out.println("Score Rouge :" + scoreRouges);
+                System.out.println("Nombres d'égalités : " + egalite);
             }
             else if(duo) {
                 mainNotIA();
@@ -106,6 +109,7 @@ public class Jeton {
                 }
                 else if (sumB == sumR) {
                     System.out.println("Égalité : " + sumB + " partout !");
+                    egalite++;
                 }
                 else {
                     System.out.println("Les rouges gagnent par " + sumR + " à " + sumB);
@@ -113,6 +117,7 @@ public class Jeton {
                 }
                 System.out.println("Score Bleu :" + scoreBleus);
                 System.out.println("Score Rouge :" + scoreRouges);
+                System.out.println("Nombres d'égalités : " + egalite);
             }
             else{
                 System.out.println("Erreur, tapez o/O/y/Y pour jouer seul (contre l'IA) ou n/N pour jouer a 2");
@@ -795,4 +800,3 @@ public class Jeton {
         }
     }
 }
-
