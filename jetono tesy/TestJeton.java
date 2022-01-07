@@ -732,6 +732,7 @@ public class TestJeton {
     public static int iaRouge3(int val){
         double c;
         String b="";
+        int i=0;
         if (val==NCASES/2){
             int i=0;
             while(!state[i].equals("___")){
@@ -751,10 +752,11 @@ public class TestJeton {
                 return vide1id;
             return vide2id;
         }
-        for(int i=0; i<NCASES; i++) {
+        while(!state[i].equals("___")){
             c=Math.random();
-            c=c*i;
+            c=c*NCASES;
             b=String.valueOf(Math.round(c));
+            i=Integer.parseInt(b);
         }
         return Integer.parseInt(b);
     }
